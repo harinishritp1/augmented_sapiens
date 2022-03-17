@@ -22,6 +22,7 @@ https://dashboard.heroku.com/pipelines/2f38c4f0-ec70-4766-b7f9-a8f9b510dd48
 
 ## Heroku end points:
 Staging: https://augmentedsapiens-staging.herokuapp.com/ 
+
 Prod: https://augmentedsapiens-prod.herokuapp.com/
 
 
