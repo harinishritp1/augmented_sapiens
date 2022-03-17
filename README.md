@@ -2,9 +2,6 @@
 ## Project Description: 
 An Augmented Reality maintenance system where users can raise service requests by tagging objects (using virtual markers) and clicking it's picture for admin team to analyze and fix.
 
-## Getting Started:
-We are using Unity for developing the frontend and a flask based application for developing the backend. RabbitMQ will be used as the messaging service connecting various api's while PostgreSQL database will be used to store the maintenance requests.
-
 ## Developers: 
 Rajshekar G S - rajshekar.gudasubhash@colorado.edu
 
@@ -18,13 +15,16 @@ Aidan Bolton - aibo2813@colorado.edu
 https://www.pivotaltracker.com/n/projects/2558990 
 
 ## Heroku URL: 
-https://dashboard.heroku.com/pipelines/2f38c4f0-ec70-4766-b7f9-a8f9b510dd48
+URL: https://dashboard.heroku.com/pipelines/2f38c4f0-ec70-4766-b7f9-a8f9b510dd48
 
-## Heroku end points:
 Staging: https://augmentedsapiens-staging.herokuapp.com/ 
 
 Prod: https://augmentedsapiens-prod.herokuapp.com/
 
+## Getting Started:
+We are using Unity for developing the frontend and a flask based application for developing the backend. RabbitMQ will be used as the messaging service connecting various api's while PostgreSQL database will be used to store the maintenance requests.
+
+## UML Diagram:
 
 ### Steps for deploying flask app onto Heroku:
 - If you don’t have a Heroku account , sign up for a new account.
