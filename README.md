@@ -23,7 +23,7 @@ Deployment steps for flask app onto Heroku :
 - We can also deploy an application through the Heroku page - New app → Under staging / production → New app → Fill in app name and click on create app → Go inside the app → Under Deploy , Deployment method → Connect the app to Github repository → Under Automatic / Manual Deploy , choose the branch you want to deploy and click on deploy
 
 
-# Deployment Instructions
+# Deployment Instructions for Mobile App
 
 ## Download Unity
 
