@@ -1,7 +1,27 @@
-# Project name : Augmented Sapiens 
-## Project Description : AR Maintenance App, where you tag certain things using virtual markers (like a virtual post-it note) and store the images in the cloud for someone else to review.		
-### Backend
-Deployment steps for flask app onto Heroku :
+# Project name: Augmented Sapiens 
+## Project Description: An Augmented Reality maintenance system where users can open service requests by tagging objects using virtual markers and clicking its picture for admin team to analyze and fix.
+
+## Getting Started:
+We are using Unity for developing the frontend and a flask based application for developing the backend. RabbitMQ will be used as the messaging service connecting various api's while PostgreSQL database will be used to store the maintenance requests.
+
+## Developers: 
+Rajshekar G S - rajshekar.gudasubhash@colorado.edu
+Saumya Bansal - saba6167@colorado.edu
+Harini Thorali - hath3708@colorado.edu
+Aidan Bolton - aibo2813@colorado.edu
+
+## Pivotal Tracker URL: 
+https://www.pivotaltracker.com/n/projects/2558990 
+
+## Heroku URL: 
+https://dashboard.heroku.com/pipelines/2f38c4f0-ec70-4766-b7f9-a8f9b510dd48
+
+## Heroku end points:
+Staging: https://augmentedsapiens-staging.herokuapp.com/ 
+Prod: https://augmentedsapiens-prod.herokuapp.com/
+
+
+### Steps for deploying flask app onto Heroku:
 - If you don’t have a Heroku account , sign up for a new account.
 - Download and Install Heroku CLI.
 - On the IDE of your choice , have your flask app ready. For example : <br>
@@ -23,7 +43,7 @@ Deployment steps for flask app onto Heroku :
 - We can also deploy an application through the Heroku page - New app → Under staging / production → New app → Fill in app name and click on create app → Go inside the app → Under Deploy , Deployment method → Connect the app to Github repository → Under Automatic / Manual Deploy , choose the branch you want to deploy and click on deploy
 
 
-# Deployment Instructions for Mobile App
+### Steps for deploying the Mobile App:
 
 ## Download Unity
 
@@ -45,4 +65,4 @@ Deployment steps for flask app onto Heroku :
 
 
 
-				
+			
