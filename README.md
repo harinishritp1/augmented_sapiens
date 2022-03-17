@@ -7,8 +7,11 @@ We are using Unity for developing the frontend and a flask based application for
 
 ## Developers: 
 Rajshekar G S - rajshekar.gudasubhash@colorado.edu
+
 Saumya Bansal - saba6167@colorado.edu
+
 Harini Thorali - hath3708@colorado.edu
+
 Aidan Bolton - aibo2813@colorado.edu
 
 ## Pivotal Tracker URL: 
