@@ -1,6 +1,6 @@
 # Project name: Augmented Sapiens 
 ## Project Description: 
-An Augmented Reality maintenance system where users can open service requests by tagging objects using virtual markers and clicking its picture for admin team to analyze and fix.
+An Augmented Reality maintenance system where users can raise service requests by tagging objects (using virtual markers) and clicking it's picture for admin team to analyze and fix.
 
 ## Getting Started:
 We are using Unity for developing the frontend and a flask based application for developing the backend. RabbitMQ will be used as the messaging service connecting various api's while PostgreSQL database will be used to store the maintenance requests.
