@@ -25,6 +25,7 @@ Prod: https://augmentedsapiens-prod.herokuapp.com/
 We are using Unity for developing the frontend and a flask based application for developing the backend. RabbitMQ will be used as the messaging service connecting various api's while PostgreSQL database will be used to store the maintenance requests.
 
 ## UML Diagram:
+![image](Images/Architecture_Diagram.jpeg)
 
 ### Steps for deploying flask app onto Heroku:
 - If you don’t have a Heroku account , sign up for a new account.
