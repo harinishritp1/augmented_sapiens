@@ -24,7 +24,7 @@ We are using Unity for developing the frontend and a flask based application for
 ## UML Diagram:
 ![image](Images/Architecture_Diagram.jpeg)
 
-## Installation steps:
+## Deployment / Installation steps:
 
 ### Steps for deploying the flask app onto Heroku:
 - If you don’t have a Heroku account, sign up for a new one.
