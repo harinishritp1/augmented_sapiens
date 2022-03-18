@@ -34,12 +34,12 @@ We are using Unity for developing the frontend and a flask based application for
 - Download and Install Heroku CLI.
 - On the IDE of your choice, have your flask app ready. <br>
 For example: <br>
-![image](Images/IDE.png)
-- Open the terminal at this application location and run the following command. <br>
+![image](Images/IDE.jpeg)
+- Open the terminal at this application location and run the following commands: <br>
   pip3 install gunicorn <br>
   pip3 freeze > requirements.txt <br>
   touch Procfile # creates a Procfile <br>
-- Inside the procfile, add the following:<br>
+- Inside the procfile, add the following: <br>
   Web: gunicorn app:app
 - Now, go to github and create a new repository for your application, if it is not existing already.
 - Push the code to the github repo.
@@ -49,7 +49,7 @@ For example: <br>
 - Once this is done run the following command to deploy our code to heroku. <br>
   git push heroku <branch_name>
 - Once done, type heroku open. It will open the deployed app on the browser.
-- We can also deploy an application through the Heroku page - New app → Under staging / production → New app → Fill in app name and click on create app → Go inside the app → Under Deploy , Deployment method → Connect the app to Github repository → Under Automatic / Manual Deploy, choose the branch you want to deploy and click on deploy
+- We can also deploy an application through the Heroku page - New app → Under staging / production → New app → Fill in app name and click on create app → Go inside the app → Under Deploy, Deployment method → Connect the app to Github repository → Under Automatic / Manual Deploy, choose the branch you want to deploy and click on deploy
 
 ### Steps for deploying the Mobile App:
 
