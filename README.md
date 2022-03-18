@@ -1,6 +1,6 @@
 # Project name: Augmented Sapiens 
 ## Project Description: 
-An Augmented Reality maintenance system where users can raise service requests by tagging objects (using virtual markers) and clicking it's picture for admin team to analyze and fix.
+An Augmented Reality maintenance system where users can raise service requests by tagging objects (using virtual markers) and clicking its picture for the admin team to analyze and fix.
 
 ### Developers: 
 - Rajshekar G S - rajshekar.gudasubhash@colorado.edu
