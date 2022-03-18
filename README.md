@@ -46,8 +46,7 @@ For example: <br>
 - Next go to terminal and type: heroku login
 - This will take you to the heroku login page. Click on login and return back to the terminal.
 - Create heroku app on terminal command: heroku create flask-app-deploy
-- Once this is done run the following command to deploy our code to heroku. <br>
-  git push heroku <branch_name>
+- Once this is done run the following command to deploy our code to heroku: git push heroku <branch_name>
 - Once done, type heroku open. It will open the deployed app on the browser.
 - We can also deploy an application through the Heroku page - New app → Under staging / production → New app → Fill in app name and click on create app → Go inside the app → Under Deploy, Deployment method → Connect the app to Github repository → Under Automatic / Manual Deploy, choose the branch you want to deploy and click on deploy
 
