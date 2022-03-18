@@ -33,8 +33,8 @@ We are using Unity for developing the frontend and a flask based application for
 - If you don’t have a Heroku account, sign up for a new one.
 - Download and Install Heroku CLI.
 - On the IDE of your choice, have your flask app ready. <br>
-For example:
-[![flask1.png](https://i.postimg.cc/J0BZZ1s2/flask1.png)](https://postimg.cc/kRq2dPFQ)
+For example: <br>
+![image](Images/IDE.png)
 - Open the terminal at this application location and run the following command. <br>
   pip3 install gunicorn <br>
   pip3 freeze > requirements.txt <br>
