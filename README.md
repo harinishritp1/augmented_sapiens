@@ -2,7 +2,7 @@
 ## Project Description: 
 An Augmented Reality maintenance system where users can raise service requests by tagging objects (using virtual markers) and clicking it's picture for admin team to analyze and fix.
 
-## Developers: 
+### Developers: 
 Rajshekar G S - rajshekar.gudasubhash@colorado.edu
 
 Saumya Bansal - saba6167@colorado.edu
@@ -11,10 +11,10 @@ Harini Thorali - hath3708@colorado.edu
 
 Aidan Bolton - aibo2813@colorado.edu
 
-## Pivotal Tracker URL: 
+### Pivotal Tracker URL: 
 https://www.pivotaltracker.com/n/projects/2558990 
 
-## Heroku: 
+### Heroku: 
 URL: https://dashboard.heroku.com/pipelines/2f38c4f0-ec70-4766-b7f9-a8f9b510dd48
 
 Staging: https://augmentedsapiens-staging.herokuapp.com/ 
