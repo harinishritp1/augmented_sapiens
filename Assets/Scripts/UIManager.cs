@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager Instance;
+
+    private void Awake() 
+    {
+        if (Instance == null)
+            Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -12,6 +20,16 @@ public class UIManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
+    {
+        
+    }
+
+    public void CaptureButton()
+    {
+        TakeScreenshot.Instance.StartCaptureProcess();
+    }
+
+    public void HideUI()
     {
         
     }

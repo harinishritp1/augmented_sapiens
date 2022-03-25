@@ -48,19 +48,13 @@ public class ARTapToPlace : MonoBehaviour
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
         
-        if (arRaycastManager.Raycast(touchPosition, hits, TrackableType.All))
+        if (spawnedObject == null)
         {
-            var hitPose = hits[0].pose;
-
-            if (spawnedObject == null)
-            {
-                spawnedObject = Instantiate(markerPrefab, hitPose.position, hitPose.rotation);
-            }
-            else
-            {
-                spawnedObject.transform.position = hitPose.position;
-            }
+            spawnedObject = Instantiate(markerPrefab, Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f), Quaternion.identity);
         }
-        
+        else
+        {
+            spawnedObject.transform.position = Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f);
+        }
     }
 }

@@ -8,5 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tag.unity
     guid: cffd04bf6a3c84a3cbd968523187c864
+  - enabled: 1
+    path: Assets/Scenes/Screenshot.unity
+    guid: f906afae0e2624a78aaadc245c746cfc
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: d96c3b9ba2d7c442b95f8c773c226547, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 710302464a5a9419a9c58cd077d05c9f, type: 2}
