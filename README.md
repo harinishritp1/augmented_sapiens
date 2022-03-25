@@ -16,5 +16,3 @@
 3. Click on "Build" in the bottom-right corner and Unity will generate a .apk file. <br><br>
    ![image](Images/build.png) <br><br>
 4. Install .apk on an Android device. Enjoy!
-
-
