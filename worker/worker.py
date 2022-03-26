@@ -96,7 +96,7 @@ def callback(ch, method, properties, body):
     db_session = scoped_session(sessionmaker(bind=engine))
     
     query = update(Ticket).where(Ticket.ticket_id==ticket_id).values(priority=priority)
-
+    conn.execute(query)
     db_session.commit()
 
     ch.basic_ack(delivery_tag=method.delivery_tag)
