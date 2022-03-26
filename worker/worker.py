@@ -10,6 +10,7 @@ import os
 import pickle
 import platform
 import sys
+
 import pika
 import requests
 import sqlalchemy
@@ -79,40 +80,47 @@ def log_info(message, key=infoKey):
             exchange='logs', routing_key=key, body=message)
 
 
+##
+## Your code goes here...
+##
 def callback(ch, method, properties, body):
     body = json.loads((body.decode("utf-8")))
     color = body['color']
-    description = body['description']
-    ticket_id = body['ticket_id']
+    desc = body['description']
+    id = body['ticket_id']
+ 
+    priority = priority(color, desc)    
+ 
 
-    priority = priority(color, description)
-
+    # Write to database
     db_session = scoped_session(sessionmaker(bind=engine))
+    
+    query = update(Ticket).where(Ticket.ticket_id==ticket_id).values(priority=priority)
 
-    query = update(Ticket).where(Ticket.ticket_id == ticket_id).values(priority=priority)
-
-    conn.execute(query)
     db_session.commit()
 
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 
-def priority(color, description):
-    types = {"Blue": 1,
-             "Red": 4,
-             "White": 1,
-             "Yellow": 3}
 
-    signs = {"leaking": 2}
+def priority(color, description):
+    
+    types = { "Blue" : 1,
+              "Red" : 4,
+              "White" : 1,
+              "Yellow" : 3}
+
+    signs = { "leaking" : 2 }
 
     prio = 0
     prio += types.get(color)
 
     desc = description.split(" ")
-
+    
     for word in desc:
         if word in list(signs.keys()):
             prio += signs.get(word)
+
 
     if prio > 5:
         prio = 5
