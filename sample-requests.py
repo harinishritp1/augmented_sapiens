@@ -22,17 +22,17 @@ def mkReq(reqmethod, endpoint, data):
         return response.text
 
 
-mkReq(requests.post, "createticket",
-      data={
-            "image" : "abc",
-            "latitude" : 70.5,
-            "longitude" : 110.5,
-            "color" : "Red",
-            "priority" : 1,
-            "description" : "Gas stove is leaking",
-            "status" : "Open"
-        }
-    )
+# mkReq(requests.post, "createticket",
+#       data={
+#             "image" : "sapiens",
+#             "latitude" : 70.5,
+#             "longitude" : 110.5,
+#             "color" : "Blue",
+#             "priority" : None,
+#             "description" : "Gas stove is leaking",
+#             "status" : "Open"
+#         }
+#     )
 
 # mkReq(requests.post, "createticket",
 #       data={
@@ -58,9 +58,15 @@ mkReq(requests.post, "createticket",
 #         }
 #     )
 
+mkReq(requests.post, "updateticket",
+      data={
+          "ticket_id": 1,
+          "status": "In progress"
+      }
+      )
 # mkReq(requests.post, "updateticket",
 #       data={
-#           "ticket_id": 2,
+#           "ticket_id": 1,
 #           "status": "Closed"
 #       }
 #       )

@@ -77,20 +77,21 @@ def callback(ch, method, properties, body):
 
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
+
 def analyze_priority(color, description):
-    types = { "Blue" : 1,
-              "Red" : 4,
-              "White" : 1,
-              "Yellow" : 3}
-    signs = { "leaking" : 2 }
+    types = {"Blue": 3,
+             "Red": 1,
+             "Green": 4,
+             "Yellow": 2}
+    signs = ["urgent", "important", "priority", "critical"]
+
     priority = 0
+
     priority += types.get(color)
     desc = description.split(" ")
     for word in desc:
         if word in list(signs.keys()):
-            priority += signs.get(word)
-    if priority > 5:
-        priority = 5
+            priority = 1
     return priority
 
 

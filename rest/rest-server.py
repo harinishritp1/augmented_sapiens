@@ -28,9 +28,10 @@ Base.metadata.reflect(engine)
 rabbitMQHost = os.getenv("RABBITMQ_HOST") or "localhost"
 print("Connecting to rabbitmq({})".format(rabbitMQHost))
 
+
 def getMQ():
     parameters = (
-    pika.ConnectionParameters(host=rabbitMQHost, port=5672)
+        pika.ConnectionParameters(host=rabbitMQHost, port=5672)
     )
     rabbitMQ = pika.BlockingConnection(parameters)
     rabbitMQChannel = rabbitMQ.channel()
@@ -38,20 +39,23 @@ def getMQ():
     rabbitMQChannel.queue_declare(queue='toWorker')
     return rabbitMQChannel
 
+
 infoKey = f"{platform.node()}.worker.info"
 debugKey = f"{platform.node()}.worker.debug"
+
 
 def log_debug(message, key=debugKey):
     print("DEBUG:", message, file=sys.stdout)
     with getMQ() as mq:
         mq.basic_publish(
-        exchange='logs', routing_key=key, body=message)
+            exchange='logs', routing_key=key, body=message)
+
 
 def log_info(message, key=infoKey):
     print("INFO:", message, file=sys.stdout)
     with getMQ() as mq:
         mq.basic_publish(
-        exchange='logs', routing_key=key, body=message)
+            exchange='logs', routing_key=key, body=message)
 
 
 class Ticket(Base):
@@ -93,6 +97,10 @@ def update_ticket():
     query = update(Ticket).where(Ticket.ticket_id == ticket_id).values(status=status)
     conn.execute(query)
     db_session.commit()
+
+    formattedJson = json.dumps(json_data)
+    with getMQ() as mq:
+        mq.basic_publish(exchange='', routing_key='toWorker', body=formattedJson)
     response = {'Action': 'Ticket updated'}
 
     return Response(json.dumps(response), status=200, mimetype="application/json")
