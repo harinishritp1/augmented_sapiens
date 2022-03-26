@@ -1,6 +1,9 @@
 import json
 import os
+import platform
+import sys
 
+import pika
 from flask import Flask, Response, request
 from sqlalchemy import create_engine, func, or_, update
 from sqlalchemy.ext.declarative import declarative_base
@@ -37,9 +40,7 @@ def getMQ():
 
 infoKey = f"{platform.node()}.worker.info"
 debugKey = f"{platform.node()}.worker.debug"
-#
-# A helpful function to send a log message
-#
+
 def log_debug(message, key=debugKey):
     print("DEBUG:", message, file=sys.stdout)
     with getMQ() as mq:
@@ -98,7 +99,7 @@ def update_ticket():
 
 
 @app.route('/getactiveticket', methods=['GET'])
-def get_get_active_ticket():
+def get_active_ticket():
     db_session = scoped_session(sessionmaker(bind=engine))
     query = db_session.query(Ticket).filter(or_(Ticket.status == "Open", Ticket.status == "In progress"))
     response_list = {}
