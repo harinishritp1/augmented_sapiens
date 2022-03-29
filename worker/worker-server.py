@@ -5,10 +5,10 @@ import platform
 import sys
 
 import pika
-from sqlalchemy import create_engine, func
+from flask import Response
+from sqlalchemy import create_engine, update
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
-from sqlalchemy.sql.functions import coalesce
 
 hostname = platform.node()
 
@@ -66,23 +66,21 @@ def callback(ch, method, properties, body):
     body = json.loads((body.decode("utf-8")))
     db_session = scoped_session(sessionmaker(bind=engine))
 
-    ticket_id = coalesce(db_session.query(func.max(Ticket.ticket_id))[0][0], 0) + 1
-    priority = analyze_priority(body['color'], body['description'])    
+    ticket_id = body['ticket_id']
+    description = body['description']
+    color = body['color']
 
-    new_ticket = Ticket(
-        ticket_id=ticket_id,
-        image=body['image'],
-        latitude=body['latitude'],
-        longitude=body['longitude'],
-        color=body['color'],
-        priority = priority,
-        description=body['description'],
-        status=body['status']
-    )
-    db_session.add(new_ticket)
+    priority = analyze_priority(color, description) 
+       
+    conn = engine.connect()
+    query = update(Ticket).where(Ticket.ticket_id==ticket_id).values(priority=priority)
+    conn.execute(query)
     db_session.commit()
 
+    response = {'Action': 'Ticket created'}
+
     ch.basic_ack(delivery_tag=method.delivery_tag)
+    return Response(json.dumps(response), status=200, mimetype="application/json")
 
 
 def analyze_priority(color, description):

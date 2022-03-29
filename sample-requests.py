@@ -39,7 +39,6 @@ mkReq(requests.post, "createticket",
 #             "latitude" : 80.5,
 #             "longitude" : 120.5,
 #             "color" : "Yellow",
-#             "priority" : 4,
 #             "description" : "Short circuit",
 #             "status" : "In progress"
 #         }
@@ -51,7 +50,6 @@ mkReq(requests.post, "createticket",
 #             "latitude" : 80.5,
 #             "longitude" : 120.5,
 #             "color" : "Blue",
-#             "priority" : 2,
 #             "description" : "Pipe broken",
 #             "status" : "In progress"
 #         }
