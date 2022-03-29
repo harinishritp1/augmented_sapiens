@@ -5,9 +5,10 @@ import platform
 import sys
 
 import pika
-from sqlalchemy import create_engine, update
+from sqlalchemy import create_engine, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.sql.functions import coalesce
 
 hostname = platform.node()
 
@@ -63,19 +64,22 @@ def log_info(message, key=infoKey):
 
 def callback(ch, method, properties, body):
     body = json.loads((body.decode("utf-8")))
-    print(body['ticket_id'])
-    print(body['description'])
-    print(body['color'])
-    ticket_id = body['ticket_id']
-    description = body['description']
-    color = body['color']
-
-    priority = analyze_priority(color, description)    
-
     db_session = scoped_session(sessionmaker(bind=engine))
-    conn = engine.connect()
-    query = update(Ticket).where(Ticket.ticket_id==ticket_id).values(priority=priority)
-    conn.execute(query)
+
+    ticket_id = coalesce(db_session.query(func.max(Ticket.ticket_id))[0][0], 0) + 1
+    priority = analyze_priority(body['color'], body['description'])    
+
+    new_ticket = Ticket(
+        ticket_id=ticket_id,
+        image=body['image'],
+        latitude=body['latitude'],
+        longitude=body['longitude'],
+        color=body['color'],
+        priority = priority,
+        description=body['description'],
+        status=body['status']
+    )
+    db_session.add(new_ticket)
     db_session.commit()
 
     ch.basic_ack(delivery_tag=method.delivery_tag)
