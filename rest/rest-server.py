@@ -74,13 +74,16 @@ def create_ticket():
         latitude=json_data['latitude'],
         longitude=json_data['longitude'],
         color=json_data['color'],
-        priority=json_data['priority'],
+        priority = None,
         description=json_data['description'],
         status=json_data['status']
     )
     db_session.add(new_ticket)
 
     db_session.commit()
+    formattedJson = json.dumps(json_data)
+    with getMQ() as mq:
+        mq.basic_publish(exchange='', routing_key='toWorker', body=formattedJson)
     response = {'Action': 'Ticket created'}
 
     return Response(json.dumps(response), status=200, mimetype="application/json")
@@ -98,9 +101,6 @@ def update_ticket():
     conn.execute(query)
     db_session.commit()
 
-    formattedJson = json.dumps(json_data)
-    with getMQ() as mq:
-        mq.basic_publish(exchange='', routing_key='toWorker', body=formattedJson)
     response = {'Action': 'Ticket updated'}
 
     return Response(json.dumps(response), status=200, mimetype="application/json")

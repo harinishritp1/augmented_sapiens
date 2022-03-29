@@ -63,6 +63,9 @@ def log_info(message, key=infoKey):
 
 def callback(ch, method, properties, body):
     body = json.loads((body.decode("utf-8")))
+    print(body['ticket_id'])
+    print(body['description'])
+    print(body['color'])
     ticket_id = body['ticket_id']
     description = body['description']
     color = body['color']
