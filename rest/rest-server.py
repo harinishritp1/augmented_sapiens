@@ -65,25 +65,11 @@ class Ticket(Base):
 @app.route('/createticket', methods=['POST'])
 def create_ticket():
     json_data = request.get_json()
-    db_session = scoped_session(sessionmaker(bind=engine))
-    ticket_id = coalesce(db_session.query(func.max(Ticket.ticket_id))[0][0], 0) + 1
-
-    new_ticket = Ticket(
-        ticket_id=ticket_id,
-        image=json_data['image'],
-        latitude=json_data['latitude'],
-        longitude=json_data['longitude'],
-        color=json_data['color'],
-        priority = None,
-        description=json_data['description'],
-        status=json_data['status']
-    )
-    db_session.add(new_ticket)
-
-    db_session.commit()
     formattedJson = json.dumps(json_data)
+
     with getMQ() as mq:
         mq.basic_publish(exchange='', routing_key='toWorker', body=formattedJson)
+
     response = {'Action': 'Ticket created'}
 
     return Response(json.dumps(response), status=200, mimetype="application/json")

@@ -97,7 +97,7 @@ def analyze_priority(color, description):
     priority += types.get(color)
     desc = description.split(" ")
     for word in desc:
-        if word in list(signs.keys()):
+        if word in signs:
             priority = 1
     return priority
 
