@@ -9,6 +9,8 @@ from flask import Response
 from sqlalchemy import create_engine, update
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy.sql.functions import coalesce
+from sqlalchemy import create_engine, func, or_, update
 
 hostname = platform.node()
 
@@ -65,8 +67,7 @@ def log_info(message, key=infoKey):
 def callback(ch, method, properties, body):
     body = json.loads((body.decode("utf-8")))
     db_session = scoped_session(sessionmaker(bind=engine))
-
-    ticket_id = body['ticket_id']
+    ticket_id = coalesce(db_session.query(func.max(Ticket.ticket_id))[0][0], 0)
     description = body['description']
     color = body['color']
 
@@ -77,10 +78,8 @@ def callback(ch, method, properties, body):
     conn.execute(query)
     db_session.commit()
 
-    response = {'Action': 'Ticket created'}
-
     ch.basic_ack(delivery_tag=method.delivery_tag)
-    return Response(json.dumps(response), status=200, mimetype="application/json")
+
 
 
 def analyze_priority(color, description):

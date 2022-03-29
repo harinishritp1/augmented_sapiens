@@ -27,8 +27,8 @@ mkReq(requests.post, "createticket",
             "image" : "augmented",
             "latitude" : 70.5,
             "longitude" : 110.5,
-            "color" : "Red",
-            "description" : "Gas stove is leaking",
+            "color" : "Blue",
+            "description" : "urgent",
             "status" : "Open"
         }
     )
