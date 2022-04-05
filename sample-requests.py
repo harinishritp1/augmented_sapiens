@@ -1,7 +1,8 @@
-import requests
 import json
 import os
 import sys
+
+import requests
 
 REST = os.getenv("REST") or "localhost:5001"
 
@@ -28,7 +29,7 @@ mkReq(requests.post, "createticket",
             "latitude" : 70.5,
             "longitude" : 110.5,
             "color" : "Blue",
-            "description" : "urgent",
+            "description" : "Gas leaking",
             "status" : "Open"
         }
     )
@@ -39,8 +40,7 @@ mkReq(requests.post, "createticket",
 #             "latitude" : 80.5,
 #             "longitude" : 120.5,
 #             "color" : "Yellow",
-#             "description" : "Short circuit",
-#             "status" : "In progress"
+#             "description" : "Short circuit"
 #         }
 #     )
 
@@ -50,8 +50,7 @@ mkReq(requests.post, "createticket",
 #             "latitude" : 80.5,
 #             "longitude" : 120.5,
 #             "color" : "Blue",
-#             "description" : "Pipe broken",
-#             "status" : "In progress"
+#             "description" : "Pipe broken"
 #         }
 #     )
 

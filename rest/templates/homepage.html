@@ -1,0 +1,15 @@
+<!doctype html>
+<nav>
+  <h1>Maintenance Application</h1>
+  <ul>
+    <li><a href="{{ url_for('createticket') }}">Create a maintenance request</a></li>
+    <li><a href="{{ url_for('getactiveticket') }}">Fetch all active maintenance requests</a></li>
+    <li><a href="{{ url_for('updateticket') }}">Update the status of existing maintenance request</a></li>
+  </ul>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% block content %}{% endblock %}
+</section>

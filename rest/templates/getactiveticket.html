@@ -1,0 +1,36 @@
+<!doctype html>
+<head>
+    <title>Active Maintenance Requests</title>
+</head>
+<body>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Priority</th>
+            <th>Image</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Color</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+        {% for row in tickets %}
+        <tr>
+            <td>{{ row['Id'] }}</td>
+            <td>{{ row['Priority'] }}</td>
+            <td>{{ row['Image'] }}</td>
+            <td>{{ row['Latitude'] }}</td>
+            <td>{{ row['Longitude'] }}</td>
+            <td>{{ row['Color'] }}</td>
+            <td>{{ row['Description'] }}</td>
+            <td>{{ row['Status'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>       
+</body>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% block content %}{% endblock %}
+</section>
