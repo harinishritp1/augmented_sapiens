@@ -197,7 +197,7 @@ class rest:
     @app.route('/updateticket', methods=['POST','GET'])
     def updateticket(self):
 
-        db_session = scoped_session(sessionmaker(bind=engine))
+        db_session = scoped_session(sessionmaker(bind=rest.engine))
 
         if request.method == 'POST':
 
