@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using LeTai.Asset.TranslucentImage;
 
 [RequireComponent(typeof(ARRaycastManager))]
 public class ARTapToPlace : MonoBehaviour
@@ -51,10 +52,13 @@ public class ARTapToPlace : MonoBehaviour
         if (spawnedObject == null)
         {
             spawnedObject = Instantiate(markerPrefab, Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f), Quaternion.identity);
+            spawnedObject.transform.GetChild(0).GetChild(0).GetComponent<TranslucentImage>().source = Camera.main.GetComponent<TranslucentImageSource>();
+            UIManager.Instance.BringUpNotePanel();
         }
-        else
-        {
-            spawnedObject.transform.position = Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f);
-        }
+        // else
+        // {
+        //     spawnedObject.transform.position = Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f);
+        //     UIManager.Instance.BringUpNotePanel();
+        // }
     }
 }
