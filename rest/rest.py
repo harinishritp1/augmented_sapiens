@@ -32,7 +32,6 @@ def getMQ():
     channel = connection.channel() # start a channel
     channel.queue_declare(queue='toWorker') # Declare a queue
     channel.exchange_declare(exchange='logs', exchange_type='topic')
-    connection.close()
     return channel
 
 class Ticket(Base):

@@ -38,7 +38,6 @@ def getMQ():
     channel = connection.channel() # start a channel
     channel.queue_declare(queue='toWorker') # Declare a queue
     channel.exchange_declare(exchange='logs', exchange_type='topic')
-    connection.close()
     return channel
 
 def callback(ch, method, properties, body):
@@ -75,6 +74,5 @@ def analyze_priority(color, description):
 
 
 with getMQ() as mq:
-    mq.basic_consume(queue='toWorker', on_message_callback=callback, auto_ack=False)
-    log_info("Worker running")
+    mq.basic_consume(queue='toWorker', on_message_callback=callback, auto_ack=True)
     mq.start_consuming()
