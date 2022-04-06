@@ -1,4 +1,0 @@
-config/app.config
-env
-rest/__pycache__
-worker/config.ini
