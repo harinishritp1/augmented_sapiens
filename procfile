@@ -1,1 +1,1 @@
-web: gunicorn rest.rest:app
+web: gunicorn rest.rest:app & gunicorn worker.worker:app & wait -n
