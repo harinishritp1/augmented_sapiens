@@ -23,40 +23,17 @@ engine = create_engine(url, convert_unicode=True, echo=False)
 Base = declarative_base()
 Base.metadata.reflect(engine)
 
-## Configure test vs. production
-##
-rabbitMQHost = os.getenv("RABBITMQ_HOST") or "localhost"
-print("Connecting to rabbitmq({})".format(rabbitMQHost))
-
-
 def getMQ():
-    parameters = (
-        pika.ConnectionParameters(host=rabbitMQHost, port=5672)
-    )
-    rabbitMQ = pika.BlockingConnection(parameters)
-    rabbitMQChannel = rabbitMQ.channel()
-    rabbitMQChannel.exchange_declare(exchange='logs', exchange_type='topic')
-    rabbitMQChannel.queue_declare(queue='toWorker')
-    return rabbitMQChannel
-
-
-infoKey = f"{platform.node()}.worker.info"
-debugKey = f"{platform.node()}.worker.debug"
-
-
-def log_debug(message, key=debugKey):
-    print("DEBUG:", message, file=sys.stdout)
-    with getMQ() as mq:
-        mq.basic_publish(
-            exchange='logs', routing_key=key, body=message)
-
-
-def log_info(message, key=infoKey):
-    print("INFO:", message, file=sys.stdout)
-    with getMQ() as mq:
-        mq.basic_publish(
-            exchange='logs', routing_key=key, body=message)
-
+    # Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
+    url = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672/%2f')
+    print("Connecting to cloudAMQP({})".format(url))
+    params = pika.URLParameters(url)
+    connection = pika.BlockingConnection(params)
+    channel = connection.channel() # start a channel
+    channel.queue_declare(queue='toWorker') # Declare a queue
+    channel.exchange_declare(exchange='logs', exchange_type='topic')
+    connection.close()
+    return channel
 
 class Ticket(Base):
     __table__ = Base.metadata.tables['tickets']
