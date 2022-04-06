@@ -204,7 +204,7 @@ def updateticket():
 @app.route('/getactiveticket')
 def getactiveticket():
     db_session = scoped_session(sessionmaker(bind=engine))
-    query = db_session.query(Ticket).filter(or_(func.lower(Ticket.status) == "open", func.lower(Ticket.status) == "in progress")).order_by(desc(Ticket.priority, Ticket.status))
+    query = db_session.query(Ticket).filter(or_(func.lower(Ticket.status) == "open", func.lower(Ticket.status) == "in progress")).order_by(desc(Ticket.priority), (Ticket.status))
     results = query.all()
     tickets = []
     response = {}
