@@ -14,7 +14,7 @@ hostname = platform.node()
 db_config = {}
 
 parser = configparser.ConfigParser()
-parser.read('config.ini')
+parser.read('worker/config.ini')
 for sect in parser.sections():
     if sect == "Database":
         for k, v in parser.items(sect):
