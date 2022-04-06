@@ -15,7 +15,6 @@ async-timeout==4.0.2
 certifi==2021.10.8
 cffi==1.15.0
 charset-normalizer==2.0.12
-click==8.0.4
 Deprecated==1.2.13
 discovery==0.0.4
 distlib==0.3.4
