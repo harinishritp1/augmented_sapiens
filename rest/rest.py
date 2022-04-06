@@ -103,8 +103,8 @@ def createticket():
             latitude=latitude,
             longitude=longitude,
             color=color,
-            priority=priority,
             description=description,
+            priority=priority,
             status=status
             )
 
@@ -135,8 +135,8 @@ def createticket():
     #     latitude=json_data['latitude'],
     #     longitude=json_data['longitude'],
     #     color=json_data['color'],
-    #     priority = None,
     #     description=json_data['description'],
+    #     priority = None,
     #     status=json_data['status']
     # )
     # db_session.add(new_ticket)
@@ -204,15 +204,15 @@ def updateticket():
 @app.route('/getactiveticket')
 def getactiveticket():
     db_session = scoped_session(sessionmaker(bind=engine))
-    query = db_session.query(Ticket).filter(or_(func.lower(Ticket.status) == "open", func.lower(Ticket.status) == "in progress")).order_by(desc(Ticket.ticket_id))
+    query = db_session.query(Ticket).filter(or_(func.lower(Ticket.status) == "open", func.lower(Ticket.status) == "in progress")).order_by(desc(Ticket.priority, Ticket.status))
     results = query.all()
     tickets = []
     response = {}
     if results is not None:
         id = 1
         for result in results:
-            ticket = {"Id": id, "Priority": result.priority, "Image": result.image, "Latitude": result.latitude, "Longitude": result.longitude,
-                        "Color": result. color, "Description": result.description, "Status": result.status}
+            ticket = {"Ticket Id": result.ticket_id, "Image": result.image, "Latitude": result.latitude, "Longitude": result.longitude,
+                        "Color": result. color, "Description": result.description, "Priority": result.priority, "Status": result.status}
             tickets.append(ticket)
             id += 1
         response = make_response(render_template('getactiveticket.html', tickets = tickets), 200)
