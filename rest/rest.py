@@ -5,7 +5,7 @@ import sys
 
 import pika
 from flask import Flask, jsonify, make_response, render_template, request
-from sqlalchemy import create_engine, desc, func, or_, update
+from sqlalchemy import create_engine, func, or_, update
 from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.sql.functions import coalesce
@@ -204,7 +204,7 @@ def updateticket():
 @app.route('/getactiveticket')
 def getactiveticket():
     db_session = scoped_session(sessionmaker(bind=engine))
-    query = db_session.query(Ticket).filter(or_(func.lower(Ticket.status) == "open", func.lower(Ticket.status) == "in progress")).order_by(desc(Ticket.priority), (Ticket.status))
+    query = db_session.query(Ticket).filter(or_(func.lower(Ticket.status) == "open", func.lower(Ticket.status) == "in progress")).order_by(Ticket.priority, Ticket.status)
     results = query.all()
     tickets = []
     response = {}
