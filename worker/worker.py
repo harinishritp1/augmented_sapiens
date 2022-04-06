@@ -31,7 +31,7 @@ class Ticket(Base):
 
 def getMQ():
     # Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
-    url = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672/%2f')
+    url = db_config['cloudamqp_url']
     print("Connecting to cloudAMQP({})".format(url))
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
@@ -43,7 +43,7 @@ def getMQ():
 def callback(ch, method, properties, body):
     
     db_session = scoped_session(sessionmaker(bind=engine))
-
+    print("hello")
     body = json.loads((body.decode("utf-8")))
 
     description = body["description"]

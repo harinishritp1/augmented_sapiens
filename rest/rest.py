@@ -25,7 +25,7 @@ Base.metadata.reflect(engine)
 
 def getMQ():
     # Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
-    url = os.environ.get('CLOUDAMQP_URL', 'amqp://guest:guest@localhost:5672/%2f')
+    url = app.config.get("CLOUDAMQP_URL")
     print("Connecting to cloudAMQP({})".format(url))
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
