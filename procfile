@@ -1,6 +1,0 @@
-web: gunicorn rest.rest:app
-worker1: rq worker -u $REDIS_URL high default low
-worker2: rq worker -u $REDIS_URL r1
-worker3: rq worker -u $REDIS_URL r2
-worker4: rq worker -u $REDIS_URL bg1
-worker5: rq worker -u $REDIS_URL bg2
