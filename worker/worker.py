@@ -41,16 +41,13 @@ def getMQ():
     return channel
 
 def callback(ch, method, properties, body):
-    
     db_session = scoped_session(sessionmaker(bind=engine))
-    print("hello")
     body = json.loads((body.decode("utf-8")))
 
     description = body["description"]
     color = body['color']
     ticket_id = body['ticket_id']
     priority = analyze_priority(color, description) 
-       
     conn = engine.connect()
     query = update(Ticket).where(Ticket.ticket_id==ticket_id).values(priority=priority)
     conn.execute(query)
@@ -69,10 +66,9 @@ def analyze_priority(color, description):
             priority = 1
 
     priority += colorMarker.get(color.lower())
-    
     return priority
 
 
 with getMQ() as mq:
-    mq.basic_consume(queue='toWorker', on_message_callback=callback, auto_ack=True)
+    mq.basic_consume(queue='toWorker', on_message_callback=callback, auto_ack=False)
     mq.start_consuming()
