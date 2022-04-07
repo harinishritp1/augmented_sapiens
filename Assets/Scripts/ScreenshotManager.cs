@@ -12,6 +12,7 @@ public class ScreenshotManager : MonoBehaviour
 {
     public static ScreenshotManager Instance;
     [HideInInspector]public byte[] imageBytes;
+    [HideInInspector]public string base64Tex;
 
     public Image ScreenshotImage;
 
@@ -23,7 +24,7 @@ public class ScreenshotManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
 
-        string base64Tex = PlayerPrefs.GetString ("Screenshot");
+        base64Tex = PlayerPrefs.GetString ("Screenshot");
 
         if (!string.IsNullOrEmpty (base64Tex)) 
         {
@@ -37,6 +38,10 @@ public class ScreenshotManager : MonoBehaviour
             tex.LoadImage(imageBytes);
             ScreenshotImage.sprite = Sprite.Create(tex, new Rect(0, 0, Util.ScreenWidth, Util.ScreenHeight), new Vector2(.5f, .5f), 100, 0, SpriteMeshType.FullRect);
         }
+    }
+
+    private void Start() {
+        RequestManager.Instance.RaiseRequest();
     }
     
 }

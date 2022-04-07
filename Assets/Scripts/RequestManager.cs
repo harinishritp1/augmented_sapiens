@@ -66,7 +66,7 @@ public class RequestManager : MonoBehaviour
 
     private IEnumerator UploadToCloud()
     {
-        string url = "";
+        string url = "https://augmentedsapiens-staging.herokuapp.com/createticket";
 
         bool connection = false;
         yield return StartCoroutine(CheckInternetConnection((isConnected) => {
@@ -87,10 +87,11 @@ public class RequestManager : MonoBehaviour
         //     form.Add(new MultipartFormFileSection("attachment", imageBytes, fileName, "image"));
 
         WWWForm form = new WWWForm();
-        form.AddBinaryData("attachment", ScreenshotManager.Instance.imageBytes);
-        // form.AddField("field", "null");
-        // form.AddField("name", foldername);
-        // form.AddField("parent_id", folderID);
+        form.AddField("Image", ScreenshotManager.Instance.base64Tex);
+        form.AddField("Latitude", "123");
+        form.AddField("Longitude", "123");
+        form.AddField("Color", "Code Red");
+        form.AddField("Description", "Hey y'all!");
         
         UnityWebRequest www = UnityWebRequest.Post(url, form);
         // www.SetRequestHeader("x-auth-token", token);

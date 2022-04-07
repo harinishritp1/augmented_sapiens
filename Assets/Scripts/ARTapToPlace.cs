@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using LeTai.Asset.TranslucentImage;
+using TMPro;
 
 [RequireComponent(typeof(ARRaycastManager))]
 public class ARTapToPlace : MonoBehaviour
@@ -49,16 +50,15 @@ public class ARTapToPlace : MonoBehaviour
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
         
-        if (spawnedObject == null)
-        {
-            spawnedObject = Instantiate(markerPrefab, Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f), Quaternion.identity);
-            spawnedObject.transform.GetChild(0).GetChild(0).GetComponent<TranslucentImage>().source = Camera.main.GetComponent<TranslucentImageSource>();
-            UIManager.Instance.BringUpNotePanel();
-        }
-        // else
+        Debug.Log("Instantiating marker");
+        spawnedObject = Instantiate(markerPrefab, Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f), Quaternion.identity);
+        GameManager.Instance.markers.Add(spawnedObject);
+        spawnedObject.transform.GetChild(0).GetChild(0).GetComponent<TranslucentImage>().source = Camera.main.GetComponent<TranslucentImageSource>();
+        // if (spawnedObject.transform.GetChild(0).GetChild(0).GetComponent<TranslucentImage>().source == null)
         // {
-        //     spawnedObject.transform.position = Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f);
-        //     UIManager.Instance.BringUpNotePanel();
+        //     spawnedObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Null";
         // }
+        UIManager.Instance.markerText = spawnedObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+        UIManager.Instance.BringUpNotePanel();
     }
 }

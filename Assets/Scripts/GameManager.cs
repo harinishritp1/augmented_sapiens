@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
+    public List<GameObject> markers;
+
+    private void Awake() 
+    {
+        Application.targetFrameRate = 120;
+        
+        if (Instance == null)
+            Instance = this;
+
+        markers = new List<GameObject>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
