@@ -7,17 +7,22 @@ using LeTai.Asset.TranslucentImage;
 using TMPro;
 
 [RequireComponent(typeof(ARRaycastManager))]
-public class ARTapToPlace : MonoBehaviour
+public class ARManager : MonoBehaviour
 {
+    public static ARManager Instance;
+    public GameObject spawnedObject;
+
     [SerializeField]
     private GameObject markerPrefab;
-    private GameObject spawnedObject;
     private ARRaycastManager arRaycastManager;
 
     static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     private void Awake() 
     {
+        if (Instance == null)
+            Instance = this;
+            
         arRaycastManager = GetComponent<ARRaycastManager>();
     }
 
@@ -50,15 +55,21 @@ public class ARTapToPlace : MonoBehaviour
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
         
-        Debug.Log("Instantiating marker");
-        spawnedObject = Instantiate(markerPrefab, Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f), Quaternion.identity);
-        GameManager.Instance.markers.Add(spawnedObject);
-        spawnedObject.transform.GetChild(0).GetChild(0).GetComponent<TranslucentImage>().source = Camera.main.GetComponent<TranslucentImageSource>();
+        if (!UIManager.Instance.isNotePanelUp)
+        {
+            Debug.Log("Instantiating marker");
+            spawnedObject = Instantiate(markerPrefab, Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f), Quaternion.identity);
+            GameManager.Instance.markers.Add(spawnedObject);
+            spawnedObject.transform.GetChild(0).GetChild(0).GetComponent<TranslucentImage>().source = Camera.main.GetComponent<TranslucentImageSource>();
+            
+            UIManager.Instance.markerText = spawnedObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
+            UIManager.Instance.BringUpNotePanel();
+        }
+        
+
         // if (spawnedObject.transform.GetChild(0).GetChild(0).GetComponent<TranslucentImage>().source == null)
         // {
         //     spawnedObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Null";
         // }
-        UIManager.Instance.markerText = spawnedObject.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>();
-        UIManager.Instance.BringUpNotePanel();
     }
 }

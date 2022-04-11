@@ -181,7 +181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2d8ea5a60b93e498780b31bf9f688df3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6c64997803dd4e56862d1a4227ec603, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -242,7 +242,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 87920701}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 362955915}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: StatusButtons
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &177105582
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,6 +674,21 @@ MonoBehaviour:
   markerText: {fileID: 0}
   notePanel: {fileID: 909102703}
   noteDescription: {fileID: 1145566783}
+  statusButtons:
+  - {fileID: 87920699}
+  - {fileID: 763261495}
+  - {fileID: 1545695603}
+  - {fileID: 1808661331}
+  selectedStatusImages:
+  - {fileID: 21300000, guid: d6c64997803dd4e56862d1a4227ec603, type: 3}
+  - {fileID: 21300000, guid: b019ae4d95f934ff1ae87d6bbc97142a, type: 3}
+  - {fileID: 21300000, guid: ce001bfafd75c4053889881b312a5841, type: 3}
+  - {fileID: 21300000, guid: 8ba18a494372e4649b945badc913d9eb, type: 3}
+  deselectedStatusImages:
+  - {fileID: 21300000, guid: 2d8ea5a60b93e498780b31bf9f688df3, type: 3}
+  - {fileID: 21300000, guid: 3f45d6064c57544658583016addff036, type: 3}
+  - {fileID: 21300000, guid: a85864b8575f34fd4a2041602321ef96, type: 3}
+  - {fileID: 21300000, guid: 2a034bfe953f744a6af454d3c67a6128, type: 3}
 --- !u!4 &362955916
 Transform:
   m_ObjectHideFlags: 0
@@ -1947,7 +1974,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 763261498}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 362955915}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: StatusButtons
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &763261498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2898,6 +2937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   markerPrefab: {fileID: 1699086580150857943, guid: f1a07638947294e88833ec2fcdb38ce3, type: 3}
+  spawnedObject: {fileID: 0}
 --- !u!1 &1487477752
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,7 +3108,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1545695606}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 362955915}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: StatusButtons
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1545695606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3247,7 +3299,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1808661334}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 362955915}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: StatusButtons
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1808661334
 MonoBehaviour:
   m_ObjectHideFlags: 0

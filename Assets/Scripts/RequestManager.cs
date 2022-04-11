@@ -67,6 +67,7 @@ public class RequestManager : MonoBehaviour
     private IEnumerator UploadToCloud()
     {
         string url = "https://augmentedsapiens-staging.herokuapp.com/createticket";
+        // string url = "http://172.20.10.2:5000";
 
         bool connection = false;
         yield return StartCoroutine(CheckInternetConnection((isConnected) => {
@@ -80,32 +81,28 @@ public class RequestManager : MonoBehaviour
             yield break;
         }
 
-        // List<IMultipartFormSection> form = new List<IMultipartFormSection>();
-
-        // form.Add(new MultipartFormDataSection("name", fileName));
-        // if(imageBytes != null)
-        //     form.Add(new MultipartFormFileSection("attachment", imageBytes, fileName, "image"));
-
         WWWForm form = new WWWForm();
-        form.AddField("Image", ScreenshotManager.Instance.base64Tex);
-        form.AddField("Latitude", "123");
-        form.AddField("Longitude", "123");
-        form.AddField("Color", "Code Red");
-        form.AddField("Description", "Hey y'all!");
-        
-        UnityWebRequest www = UnityWebRequest.Post(url, form);
-        // www.SetRequestHeader("x-auth-token", token);
+        form.AddField("image", ScreenshotManager.Instance.base64Tex);
+        // form.AddField("image", "rgb");
+        form.AddField("latitude", "123");
+        form.AddField("longitude", "123");
+        form.AddField("color", "Code Red");
+        form.AddField("description", "Hey y'all!");
 
-        yield return www.SendWebRequest();
-        if (www.isNetworkError || www.isHttpError)
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            string response = www.downloadHandler.text;
-            print(response);  
-        }
+            yield return www.SendWebRequest();
 
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Form upload complete!");
+                string response = www.downloadHandler.text;
+                print(response);    
+            }
+        }
     }
 }
