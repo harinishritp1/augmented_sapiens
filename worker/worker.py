@@ -20,7 +20,7 @@ for sect in parser.sections():
         for k, v in parser.items(sect):
             db_config[k] = v
 
-url = 'postgresql://' + db_config['user'] + ':' + db_config['password'] + '@' + db_config['host'] + ":" + db_config['port'] + '/' + db_config['db_name']
+url = db_config['database_url']
 
 engine = create_engine(url, convert_unicode=True, echo=False)
 Base = declarative_base()

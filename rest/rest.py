@@ -12,13 +12,8 @@ from sqlalchemy.sql.functions import coalesce
 
 app = Flask(__name__)
 app.config.from_pyfile('../config/app.conf')
-user = app.config.get("USER")
-password = app.config.get("PASSWORD")
-host = app.config.get("HOST")
-port = app.config.get("PORT")
-db_name = app.config.get("DB_NAME")
 
-url = 'postgresql://' + user + ':' + password + '@' + host + ":" + port + '/' + db_name
+url = app.config.get("DATABASE_URL")
 engine = create_engine(url, convert_unicode=True, echo=False)
 Base = declarative_base()
 Base.metadata.reflect(engine)
