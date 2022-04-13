@@ -9,6 +9,7 @@ from sqlalchemy import create_engine, update
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 
+app = Flask(__name__)
 hostname = platform.node()
 
 db_config = {}
@@ -69,6 +70,7 @@ def analyze_priority(color, description):
     return priority
 
 
-# with getMQ() as mq:
-#     mq.basic_consume(queue='toWorker', on_message_callback=callback, auto_ack=False)
-#     mq.start_consuming()
+with getMQ() as mq:
+    mq.basic_consume(queue='toWorker', on_message_callback=callback, auto_ack=False)
+    mq.start_consuming()
+cdcd
