@@ -69,6 +69,6 @@ def analyze_priority(color, description):
     return priority
 
 
-with getMQ() as mq:
-    mq.basic_consume(queue='toWorker', on_message_callback=callback, auto_ack=False)
-    mq.start_consuming()
+# with getMQ() as mq:
+#     mq.basic_consume(queue='toWorker', on_message_callback=callback, auto_ack=False)
+#     mq.start_consuming()
