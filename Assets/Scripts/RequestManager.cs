@@ -3,49 +3,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-
+using TMPro;
 
 public class RequestManager : MonoBehaviour
 {
     public static RequestManager Instance;
 
+    public TextMeshProUGUI gpsText;
+
     private float latitude;
     private float longitude;
     private string description = "";
+    private string color = "";
 
     private void Awake() 
     {
         if (Instance == null)
             Instance = this;
 
-
-        GetGPSCoords();
-        GetIssueDescription();
-        GetAnchorColor();
+        GetSavedData();
+        UpdateGPStext();
     }
 
-    private void GetGPSCoords()
+    private void GetSavedData()
     {
         latitude = PlayerPrefs.GetFloat("Lat");
         longitude = PlayerPrefs.GetFloat("Long");
-    }
-
-    private void GetIssueDescription()
-    {
         description = PlayerPrefs.GetString("description");
+        color = PlayerPrefs.GetString("color");
     }
 
-    private void GetAnchorColor()
+    private void UpdateGPStext()
     {
-
+        gpsText.text = "Detected Coordinates: " + latitude.ToString() + ", " + longitude.ToString();
     }
 
-    public void RaiseRequest()
+    private void Start() 
+    {
+        // RaiseServiceRequest(); // For Debugging
+    }
+
+    public void RaiseServiceRequest()
     {
         StartCoroutine(UploadToCloud());
     }
-
-
 
     /******************* Raise a service request *******************/
 
@@ -83,11 +84,11 @@ public class RequestManager : MonoBehaviour
 
         WWWForm form = new WWWForm();
         form.AddField("image", ScreenshotManager.Instance.base64Tex);
-        // form.AddField("image", "rgb");
-        form.AddField("latitude", "123");
-        form.AddField("longitude", "123");
-        form.AddField("color", "Code Red");
-        form.AddField("description", "Hey y'all!");
+        // form.AddField("image", "rgb");   // for Debugging
+        form.AddField("latitude", latitude.ToString());
+        form.AddField("longitude",longitude.ToString());
+        form.AddField("color", color);
+        form.AddField("description", description);
 
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
@@ -99,7 +100,6 @@ public class RequestManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("Form upload complete!");
                 string response = www.downloadHandler.text;
                 print(response);    
             }

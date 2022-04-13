@@ -15,9 +15,7 @@ public class ScreenshotManager : MonoBehaviour
     [HideInInspector]public string base64Tex;
 
     public Image ScreenshotImage;
-
     private Texture2D tex;
-    private string api = "";
 
     void Awake()
     {
@@ -39,9 +37,4 @@ public class ScreenshotManager : MonoBehaviour
             ScreenshotImage.sprite = Sprite.Create(tex, new Rect(0, 0, Util.ScreenWidth, Util.ScreenHeight), new Vector2(.5f, .5f), 100, 0, SpriteMeshType.FullRect);
         }
     }
-
-    private void Start() {
-        RequestManager.Instance.RaiseRequest();
-    }
-    
 }

@@ -9,6 +9,7 @@ public class TakeScreenshot : MonoBehaviour
     public static TakeScreenshot Instance;
 
     private bool imageSaved = false;
+    private bool dataSaved = false;
 
     private void Awake() 
     {
@@ -27,11 +28,12 @@ public class TakeScreenshot : MonoBehaviour
     public void StartCaptureProcess()
     {
         UIManager.Instance.HideUI();
-        StartCoroutine(Capture());
+        StartCoroutine(CaptureScreenshot());
+        SaveData();
         StartCoroutine(ChangeScene());
     }
 
-    private IEnumerator Capture()
+    private IEnumerator CaptureScreenshot()
     {        
         yield return new WaitForEndOfFrame();
 
@@ -58,9 +60,18 @@ public class TakeScreenshot : MonoBehaviour
         imageSaved = true;
     }
 
-    IEnumerator ChangeScene()
+    private void SaveData()
     {
-        // yield return new WaitUntil(isNoteDataReceieved);
+        PlayerPrefs.SetFloat("Lat", GPS.Instance.latitude);
+        PlayerPrefs.SetFloat("Long", GPS.Instance.longitude);
+        PlayerPrefs.SetString("description", UIManager.Instance.noteDescription.text);
+        PlayerPrefs.SetString("color", UIManager.Instance.anchorColor);
+        dataSaved = true;
+    }
+
+    private IEnumerator ChangeScene()
+    {
+        yield return new WaitUntil(isDataSaved);
         yield return new WaitUntil(isImageSaved);
         Debug.Log("Changing Scene");
         SceneManager.LoadScene(1);
@@ -69,12 +80,16 @@ public class TakeScreenshot : MonoBehaviour
     bool isImageSaved()
     {
         if(imageSaved)
-        {
             return true;
-        }
         else
-        {
             return false;
-        }
+    }
+
+    bool isDataSaved()
+    {
+        if(dataSaved)
+            return true;
+        else
+            return false;
     }
 }

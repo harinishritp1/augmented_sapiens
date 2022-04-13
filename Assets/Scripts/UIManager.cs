@@ -17,8 +17,11 @@ public class UIManager : MonoBehaviour
     public Sprite[] selectedStatusImages = new Sprite[4];
     public Sprite[] deselectedStatusImages = new Sprite[4];
     public bool isNotePanelUp = false;
+    public string anchorColor = "";
 
-    private void Awake() 
+    private int status = 0;
+    
+    private void Awake()
     {
         if (Instance == null)
             Instance = this;
@@ -94,21 +97,25 @@ public class UIManager : MonoBehaviour
             case 1: 
                 statusButtons[0].GetComponent<Image>().sprite = selectedStatusImages[0];
                 ARManager.Instance.spawnedObject.GetComponent<SpriteRenderer>().sprite = deselectedStatusImages[0];
+                status = 1; anchorColor = "Red";
                 break;
 
             case 2:
                 statusButtons[1].GetComponent<Image>().sprite = selectedStatusImages[1];
                 ARManager.Instance.spawnedObject.GetComponent<SpriteRenderer>().sprite = deselectedStatusImages[1];
+                status = 2; anchorColor = "Yellow";
                 break;
 
             case 3:
                 statusButtons[2].GetComponent<Image>().sprite = selectedStatusImages[2];
                 ARManager.Instance.spawnedObject.GetComponent<SpriteRenderer>().sprite = deselectedStatusImages[2];
+                status = 3; anchorColor = "Blue";
                 break;
             
             case 4: 
                 statusButtons[3].GetComponent<Image>().sprite = selectedStatusImages[3];
                 ARManager.Instance.spawnedObject.GetComponent<SpriteRenderer>().sprite = deselectedStatusImages[3];
+                status = 4; anchorColor = "Green";
                 break;
 
             default:

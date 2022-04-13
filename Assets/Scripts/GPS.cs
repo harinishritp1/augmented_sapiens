@@ -20,12 +20,6 @@ public class GPS : MonoBehaviour
 
     private void Start() 
     {
-        GetCoordinates();
-    }
-
-    public void GetCoordinates()
-    {
-        Debug.Log("Getting Location");
         StartCoroutine(GetLocation());
     }
 
@@ -69,10 +63,8 @@ public class GPS : MonoBehaviour
             latitude = Input.location.lastData.latitude;
             longitude = Input.location.lastData.longitude;
 
-            PlayerPrefs.SetFloat("Lat", latitude);
-            PlayerPrefs.SetFloat("Long", longitude);
-
-            Debug.Log("Location recieved and stored");
+            // PlayerPrefs.SetFloat("Lat", latitude);
+            // PlayerPrefs.SetFloat("Long", longitude);
         }
 
         // Stop service if there is no need to query location updates continuously
