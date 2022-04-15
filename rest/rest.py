@@ -210,9 +210,9 @@ def getactiveticket():
                         "Color": result. color, "Description": result.description, "Priority": result.priority, "Status": result.status}
             tickets.append(ticket)
             id += 1
-        response = make_response(render_template('getactiveticket.html', tickets = tickets), 200)
+        response = tickets
     else:
         response["MESSAGE"] = "No active ticket found!"
 
-    return response
+    return jsonify(response)
     #return Response(json.dumps(response_list), status=200, mimetype="application/json")
