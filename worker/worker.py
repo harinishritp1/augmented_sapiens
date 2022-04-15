@@ -25,10 +25,7 @@ for sect in parser.sections():
     if sect == "Database":
         for k, v in parser.items(sect):
             db_config[k] = v
-print(db_config)
-#url = 'postgresql://' + db_config['user'] + ':' + db_config['password'] + '@' + db_config['host'] + ":" + db_config['port'] + '/' + db_config['db_name']
-url = 'postgresql://nqhhsndosqitvj:4f39a3506fdfb516f035fcd5bb21d77fdeca238b853abad2011999fc6b328fb5@ec2-34-194-73-236.compute-1.amazonaws.com:5432/d90r6plpb25oio'
-#url = db_config['database_url']
+url = db_config['database_url']
 
 engine = create_engine(url, convert_unicode=True, echo=False)
 Base = declarative_base()
