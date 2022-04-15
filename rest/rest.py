@@ -209,17 +209,17 @@ def getactiveticket():
     tickets = []
     response = {}
     if results is not None:
-        id = 1
+        count = 0
         for result in results:
             ticket = {"Ticket Id": result.ticket_id, "Image": result.image, "Latitude": result.latitude,
                       "Longitude": result.longitude,
                       "Color": result.color, "Description": result.description, "Priority": result.priority,
                       "Status": result.status}
             tickets.append(ticket)
-            id += 1
-        response = make_response(render_template('getactiveticket.html', tickets=tickets), 200)
+            count += 1
+        response = {"count" : count, "data": tickets}
     else:
-        response["MESSAGE"] = "No active ticket found!"
+        response = {"count" : 0, "data" : None}
 
-    return response
-    # return Response(json.dumps(response_list), status=200, mimetype="application/json")
+    return jsonify(response)
+    #return Response(json.dumps(response_list), status=200, mimetype="application/json")
