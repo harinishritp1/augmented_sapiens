@@ -18,19 +18,22 @@ engine = create_engine(url, convert_unicode=True, echo=False)
 Base = declarative_base()
 Base.metadata.reflect(engine)
 
+
 def getMQ():
     # Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
     url = app.config.get("CLOUDAMQP_URL")
     print("Connecting to cloudAMQP({})".format(url))
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
-    channel = connection.channel() # start a channel
-    channel.queue_declare(queue='toWorker') # Declare a queue
+    channel = connection.channel()  # start a channel
+    channel.queue_declare(queue='toWorker')  # Declare a queue
     channel.exchange_declare(exchange='logs', exchange_type='topic')
     return channel
 
+
 class Ticket(Base):
     __table__ = Base.metadata.tables['tickets']
+
 
 class AlchemyEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -40,7 +43,7 @@ class AlchemyEncoder(json.JSONEncoder):
             for field in [x for x in dir(obj) if not x.startswith('_') and x != 'metadata']:
                 data = obj.__getattribute__(field)
                 try:
-                    json.dumps(data) # this will fail on non-encodable values, like other classes
+                    json.dumps(data)  # this will fail on non-encodable values, like other classes
                     fields[field] = data
                 except TypeError:
                     fields[field] = None
@@ -48,14 +51,16 @@ class AlchemyEncoder(json.JSONEncoder):
             return fields
         return json.JSONEncoder.default(self, obj)
 
+
 @app.route('/')
 def home():
     return render_template('homepage.html')
 
-@app.route('/createticket', methods=['POST','GET'])
-def createticket():
 
-    db_session = scoped_session(sessionmaker(bind=engine))
+@app.route('/createticket', methods=['POST', 'GET'])
+def createticket(data=None):
+    print("create23456")
+    db_session = scoped_session(sessionmaker(bind=engine))  # starts new session
 
     if request.method == 'POST':
 
@@ -68,7 +73,7 @@ def createticket():
         description = request.form.get("description")
         status = "Open"
 
-        response={}
+        response = {}
 
         if not image:
             response["ERROR"] = "Please enter an image"
@@ -93,19 +98,18 @@ def createticket():
         else:
 
             new_ticket = Ticket(
-            ticket_id=ticket_id,
-            image=image,
-            latitude=latitude,
-            longitude=longitude,
-            color=color,
-            description=description,
-            priority=priority,
-            status=status
+                ticket_id=ticket_id,
+                image=image,
+                latitude=latitude,
+                longitude=longitude,
+                color=color,
+                description=description,
+                priority=priority,
+                status=status
             )
 
             db_session.add(new_ticket)
             db_session.commit()
-
 
             formattedJson = json.dumps(new_ticket, cls=AlchemyEncoder)
 
@@ -122,7 +126,7 @@ def createticket():
 
     # json_data = request.get_json()
     # db_session = scoped_session(sessionmaker(bind=engine))
-    
+
     # ticket_id = coalesce(db_session.query(func.max(Ticket.ticket_id))[0][0], 0) + 1
     # new_ticket = Ticket(
     #     ticket_id=ticket_id,
@@ -146,9 +150,9 @@ def createticket():
 
     # return Response(json.dumps(response), status=200, mimetype="application/json")
 
-@app.route('/updateticket', methods=['POST','GET'])
-def updateticket():
 
+@app.route('/updateticket', methods=['POST', 'GET'])
+def updateticket():
     db_session = scoped_session(sessionmaker(bind=engine))
 
     if request.method == 'POST':
@@ -156,7 +160,7 @@ def updateticket():
         ticket_id = int(request.form.get("ticket_id"))
         status = request.form.get("status")
 
-        response={}
+        response = {}
 
         if not ticket_id:
             response["ERROR"] = "Please enter a ticket id"
@@ -178,7 +182,6 @@ def updateticket():
         response = make_response(render_template('updateticket.html'), 200)
         return response
 
-
     # json_data = request.get_json()
     # db_session = scoped_session(sessionmaker(bind=engine))
     # ticket_id = json_data['ticket_id']
@@ -199,15 +202,19 @@ def updateticket():
 @app.route('/getactiveticket')
 def getactiveticket():
     db_session = scoped_session(sessionmaker(bind=engine))
-    query = db_session.query(Ticket).filter(or_(func.lower(Ticket.status) == "open", func.lower(Ticket.status) == "in progress")).order_by(Ticket.priority, Ticket.status)
+    query = db_session.query(Ticket).filter(
+        or_(func.lower(Ticket.status) == "open", func.lower(Ticket.status) == "in progress")).order_by(Ticket.priority,
+                                                                                                       Ticket.status)
     results = query.all()
     tickets = []
     response = {}
     if results is not None:
         id = 1
         for result in results:
-            ticket = {"Ticket Id": result.ticket_id, "Image": result.image, "Latitude": result.latitude, "Longitude": result.longitude,
-                        "Color": result. color, "Description": result.description, "Priority": result.priority, "Status": result.status}
+            ticket = {"Ticket Id": result.ticket_id, "Image": result.image, "Latitude": result.latitude,
+                      "Longitude": result.longitude,
+                      "Color": result.color, "Description": result.description, "Priority": result.priority,
+                      "Status": result.status}
             tickets.append(ticket)
             id += 1
         response = tickets
