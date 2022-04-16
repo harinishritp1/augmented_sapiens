@@ -2,14 +2,17 @@ import unittest
 from unittest import TestCase
 import sys
 import os
+
 myDir = os.getcwd()
 sys.path.append(myDir)
 from pathlib import Path
+
 path = Path(myDir)
 a = str(path.parent.absolute())
 sys.path.append(a)
 from worker.worker import analyze_priority
-
+#import worker.worker
+# from worker import worker #import analyze_priority
 
 class AnalyzePriorityFunction(TestCase):
     def test_analyze_null_condition(self):

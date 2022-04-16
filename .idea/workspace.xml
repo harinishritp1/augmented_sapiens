@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a61186ff-c643-432d-a1f5-22b87e8e5b28" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/config/app.conf" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_files/testing_unittests.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_files/testing_unittests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/worker/worker.py" beforeDir="false" afterPath="$PROJECT_DIR$/worker/worker.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +37,10 @@
     <setting file="file://$USER_HOME$/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.9_qbz5n2kfra8p0/LocalCache/local-packages/Python39/site-packages/sqlalchemy/sql/functions.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/wsgi.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/worker/worker.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/config/app.conf" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/worker/config.ini" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/rest/rest.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/test_files/testing_usingmock.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/test_files/testing_unittests.py" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -49,7 +54,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/test_files/testing_usingmock.py" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Desktop/Spring 2022/OOAD/chatbot" />
     <property name="settings.editor.selected.configurable" value="build.tools" />
   </component>
   <component name="PyConsoleOptionsProvider">
@@ -67,7 +72,7 @@
       <recent name="C:\Users\tphar\OneDrive\augmented_sapiens_updated\test_files" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.testing_usingmock">
+  <component name="RunManager" selected="Python.testing_unittests">
     <configuration name="testing_unittests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -176,11 +181,11 @@
     </configuration>
     <list>
       <item itemvalue="Python.testing_usingmock" />
+      <item itemvalue="Python.testing_unittests" />
       <item itemvalue="Python tests.pytest for testing_integration.IntegrationTesting" />
       <item itemvalue="Python tests.pytest for testing_integration.IntegrationTesting.testcreateticket" />
       <item itemvalue="Python tests.pytest for testing_unittests.AnalyzePriorityFunction" />
       <item itemvalue="Python tests.pytest for testing_unittests.AnalyzePriorityFunction.test_analyze_null_condition" />
-      <item itemvalue="Python.testing_unittests" />
     </list>
     <recent_temporary>
       <list>
