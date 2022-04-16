@@ -20,7 +20,8 @@ for sect in parser.sections():
         for k, v in parser.items(sect):
             db_config[k] = v
 
-url = db_config['database_url']
+#url = db_config['database_url']
+url = "amqps://kjnpzwnf:qgkK0d67EqbfhmHc8ujyX2sOSn_T2Q3t@woodpecker.rmq.cloudamqp.com/kjnpzwnf"
 
 engine = create_engine(url, convert_unicode=True, echo=False)
 Base = declarative_base()
