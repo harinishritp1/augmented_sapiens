@@ -15,7 +15,7 @@ from pathlib import Path
 path = Path(myDir)
 a = str(path.parent.absolute())
 sys.path.append(a)
-from worker.worker import analyze_priority
+from worker.worker_function import analyze_priority
 
 
 def test_analyze_function():
