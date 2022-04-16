@@ -25,4 +25,4 @@ def test_analyze_function():
 
 
 #test_analyze_function()
-# pytest .\testing_usingmock.py
+# pytest .\test_usingmock.py
