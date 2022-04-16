@@ -59,9 +59,8 @@ def home():
 
 @app.route('/createticket', methods=['POST', 'GET'])
 def createticket(data=None):
-    print("create23456")
     db_session = scoped_session(sessionmaker(bind=engine))  # starts new session
-
+    
     if request.method == 'POST':
 
         ticket_id = coalesce(db_session.query(func.max(Ticket.ticket_id))[0][0], 0) + 1
