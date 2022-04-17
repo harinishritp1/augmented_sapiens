@@ -19,7 +19,7 @@ from worker.worker_function import analyze_priority
 
 
 def test_analyze_function():
-        with patch("worker.worker.analyze_priority") as analyzeprioritymock:
+        with patch("worker.worker_function.analyze_priority") as analyzeprioritymock:
             analyzeprioritymock.return_value = 2
             assert analyze_priority(color="red", description="urgent")
 
