@@ -11,7 +11,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask import Flask
 import threading
-from worker_function import analyze_priority
+from worker.worker_function import analyze_priority
 
 app = Flask(__name__)
 app.config.from_pyfile('../config/app.conf')
