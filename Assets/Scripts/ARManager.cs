@@ -26,12 +26,6 @@ public class ARManager : MonoBehaviour
         arRaycastManager = GetComponent<ARRaycastManager>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -55,7 +49,7 @@ public class ARManager : MonoBehaviour
         if (!TryGetTouchPosition(out Vector2 touchPosition))
             return;
         
-        if (!UIManager.Instance.isNotePanelUp)
+        if (!UIManager.Instance.isNotePanelUp && spawnedObject==null)
         {
             Debug.Log("Instantiating marker");
             spawnedObject = Instantiate(markerPrefab, Camera.main.transform.position + new Vector3(0.0f, 0.0f, 0.2f), Quaternion.identity);
