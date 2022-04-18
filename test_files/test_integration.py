@@ -12,10 +12,10 @@ from sqlalchemy.sql.functions import coalesce
 
 import requests
 from rest import rest
-import worker.worker as worker
+#from worker import worker, worker_function
 
 @pytest.fixture
-def app_context():
+def atpp_context():
     with rest.app.app_context():
         yield
 
@@ -42,33 +42,33 @@ def test_send_to_mq(monkeypatch, app_context):
     assert MQ.touched
 
 
-def test_get_from_mq(monkeypatch):
+# def test_get_from_mq(monkeypatch):
 
-    db = fake_db()
+#     db = fake_db()
 
-    def create_fake_db(String):
-        return db
+#     def create_fake_db(String):
+#         return db
 
-    def create_fake_json():
-        return fake_json()
+#     def create_fake_json():
+#         return fake_json()
 
-    def create_fake_engine():
-        return fake_engine()
+#     def create_fake_engine():
+#         return fake_engine()
     
-    def create_fake_update():
-        return fake_update()
+#     def create_fake_update():
+#         return fake_update()
 
-    def create_fake_body():
-        return fake_body
+#     def create_fake_body():
+#         return fake_body
 
-    monkeypatch.setattr(rest, "scoped_session", create_fake_db)
-    monkeypatch.setattr(rest, "json", create_fake_json)
-    monkeypatch.setattr(rest, "create_engine", create_fake_engine)
-    monkeypatch.setattr(rest, "update", create_fake_update)
+#     monkeypatch.setattr(rest, "scoped_session", create_fake_db)
+#     monkeypatch.setattr(rest, "json", create_fake_json)
+#     monkeypatch.setattr(rest, "create_engine", create_fake_engine)
+#     monkeypatch.setattr(rest, "update", create_fake_update)
 
-    worker.callback(fake_ch(), fake_method(), "one", create_fake_body())
+#     worker.callback(fake_ch(), fake_method(), "one", create_fake_body())
 
-    assert db.touched
+#     assert db.touched
 
 
 class fake_db:
