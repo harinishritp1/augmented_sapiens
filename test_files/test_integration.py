@@ -15,7 +15,7 @@ from rest import rest
 #from worker import worker, worker_function
 
 @pytest.fixture
-def atpp_context():
+def app_context():
     with rest.app.app_context():
         yield
 
