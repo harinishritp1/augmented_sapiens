@@ -15,11 +15,11 @@ from rest import rest
 #from worker import worker, worker_function
 
 @pytest.fixture
-def app_context():
+def atpp_context():
     with rest.app.app_context():
         yield
 
-def test_send_to_mq(monkeypatch, app_context):
+def test_send_to_mq(monkeypatch, atpp_context):
 
     MQ = fake_MQ()
 
