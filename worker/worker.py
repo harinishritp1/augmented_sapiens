@@ -1,17 +1,13 @@
 import configparser
 import json
-import os
 import platform
-import sys
-import time
 
 import pika
 from sqlalchemy import create_engine, update
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask import Flask
-import threading
-from worker.worker_function import analyze_priority
+from worker_function import analyze_priority
 
 app = Flask(__name__)
 app.config.from_pyfile('../config/app.conf')
@@ -26,10 +22,9 @@ for sect in parser.sections():
     if sect == "Database":
         for k, v in parser.items(sect):
             db_config[k] = v
-print(db_config)
-# url = 'postgresql://' + db_config['user'] + ':' + db_config['password'] + '@' + db_config['host'] + ":" + db_config['port'] + '/' + db_config['db_name']
-url = 'postgresql://nqhhsndosqitvj:4f39a3506fdfb516f035fcd5bb21d77fdeca238b853abad2011999fc6b328fb5@ec2-34-194-73-236.compute-1.amazonaws.com:5432/d90r6plpb25oio'
+            
 # url = db_config['database_url']
+url = 'postgresql://nqhhsndosqitvj:4f39a3506fdfb516f035fcd5bb21d77fdeca238b853abad2011999fc6b328fb5@ec2-34-194-73-236.compute-1.amazonaws.com:5432/d90r6plpb25oio'
 
 engine = create_engine(url, convert_unicode=True, echo=False)
 Base = declarative_base()
@@ -54,7 +49,6 @@ def getMQ():
     return channel
 
 
-#
 def callback(ch, method, properties, body):
     db_session = scoped_session(sessionmaker(bind=engine))
     body = json.loads((body.decode("utf-8")))
