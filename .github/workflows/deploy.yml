@@ -20,4 +20,4 @@ jobs:
           heroku_email: "hath3708@colorado.edu"
 
       - name: Test
-        run: curl "https://augmentedsapiens-staging.herokuapp.com/ping"
+        run: curl "https://augmentedsapiens-staging.herokuapp.com/"
