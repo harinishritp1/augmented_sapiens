@@ -129,4 +129,61 @@ public class AdminManager : MonoBehaviour
             }
         }
     }
+
+    public void UpdateTicket()
+    {
+        StartCoroutine(UpdateTicketStatus());
+    }
+
+    private IEnumerator UpdateTicketStatus()
+    {
+        string url = "https://augmentedsapiens-staging.herokuapp.com/createticket";
+
+        bool connection = false;
+        yield return StartCoroutine(CheckInternetConnection((isConnected) => {
+            // handle connection status here
+            connection = isConnected;
+        }));
+
+        if (!connection)
+        {
+            Debug.Log("No internet Connection");
+            // ActivateNotification("No internet Connection");
+            yield break;
+        }
+
+        WWWForm form = new WWWForm();
+        // form.AddField("image", ScreenshotManager.Instance.base64Tex);
+        // form.AddField("latitude", latitude.ToString());
+        // form.AddField("longitude",longitude.ToString());
+        // form.AddField("color", color);
+        // form.AddField("description", description);
+
+        /************ For Debugging *************/
+        // form.AddField("image", "rgb");   
+        // form.AddField("latitude", "123");
+        // form.AddField("longitude", "123");
+        // form.AddField("color", "blue");
+        // form.AddField("description", "description");
+
+        using (UnityWebRequest www = UnityWebRequest.Post(url, form))
+        {
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+                // ActivateNotification(www.error);
+            }
+            else
+            {
+                string response = www.downloadHandler.text;
+                print(response);
+                if(response == "{\"MESSAGE\":\"Ticket created successfully!\"}")
+                {
+                    // ActivateNotification("Ticket created successfully!");
+                }
+            }
+        }
+    }
 }

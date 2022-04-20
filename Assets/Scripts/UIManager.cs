@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public GameObject cardPanel;
     public GameObject[] cardsPanel;
     public GameObject handleRequestPanel;
+    public GameObject infoPanel;
     public TMP_InputField noteDescription;
     public TMP_InputField password;
     public GameObject[] statusButtons = new GameObject[4];
@@ -170,7 +171,8 @@ public class UIManager : MonoBehaviour
 
     public void PopulateRequests(int cardNumber)
     {
-        cardsPanel[cardNumber].GetComponent<Image>().sprite = Sprite.Create(CreateImage(adminManager.request.image), new Rect(0, 0, Util.ScreenWidth, Util.ScreenHeight), new Vector2(.5f, .5f), 100, 0, SpriteMeshType.FullRect);        
+        cardsPanel[cardNumber].GetComponent<Image>().sprite = Sprite.Create(CreateImage(adminManager.request.image), new Rect(0, 0, Util.ScreenWidth, Util.ScreenHeight), new Vector2(.5f, .5f), 100, 0, SpriteMeshType.FullRect);   
+        cardsPanel[cardNumber].GetComponent<Image>().preserveAspect = true;     
     }
 
     public Texture2D CreateImage(string base64Tex)
@@ -189,10 +191,18 @@ public class UIManager : MonoBehaviour
     {
         handleRequestPanel.SetActive(true);
         handleRequestPanel.GetComponent<Image>().sprite = Sprite.Create(CreateImage(adminManager.requestList[cardNumber].image), new Rect(0, 0, Util.ScreenWidth, Util.ScreenHeight), new Vector2(.5f, .5f), 100, 0, SpriteMeshType.FullRect); 
+        infoPanel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "Location: " + adminManager.requestList[cardNumber].latitude.ToString() + ", " + adminManager.requestList[cardNumber].longitude.ToString();
+        infoPanel.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "Priority: " + adminManager.requestList[cardNumber].priority.ToString();
+        infoPanel.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = "Description: " + adminManager.requestList[cardNumber].description;
     }
 
     public void RequestBackButton()
     {
         handleRequestPanel.SetActive(false);
+    }
+
+    public void UpdateTicketButton()
+    {
+        adminManager.UpdateTicket();
     }
 }
