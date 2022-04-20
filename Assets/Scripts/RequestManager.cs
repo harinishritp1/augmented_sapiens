@@ -11,6 +11,7 @@ public class RequestManager : MonoBehaviour
 
     public TextMeshProUGUI gpsText;
     public GameObject notificationPanel;
+    public GameObject loadingPanel;
     public TextMeshProUGUI notificationhHeading;
 
     private float latitude;
@@ -48,6 +49,7 @@ public class RequestManager : MonoBehaviour
     public void RaiseServiceRequest()
     {
         StartCoroutine(UploadToCloud());
+        loadingPanel.SetActive(true);
     }
 
     /******************* Raise a service request *******************/
@@ -101,6 +103,7 @@ public class RequestManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
             yield return www.SendWebRequest();
+            loadingPanel.SetActive(false);
 
             if (www.result != UnityWebRequest.Result.Success)
             {
@@ -112,7 +115,7 @@ public class RequestManager : MonoBehaviour
             {
                 string response = www.downloadHandler.text;
                 print(response);
-                if(response == "{\"MESSAGE\":\"Ticket created successfully!\"}")
+                if(response != null)
                 {
                     ActivateNotification("Ticket created successfully!");
                 }

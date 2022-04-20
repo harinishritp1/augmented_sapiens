@@ -9,6 +9,7 @@ public class AdminManager : MonoBehaviour
     public static AdminManager Instance;
 
     public int numOfRequests = 0;
+    public string adminStatus = "";
     
     public struct Requests 
     {
@@ -40,6 +41,11 @@ public class AdminManager : MonoBehaviour
         // LoadTestFile();
     }
 
+    public void ReloadRequests()
+    {
+        StartCoroutine(GetActiveRequests());
+    }
+
     private void LoadTestFile()
     {
         if (testJSON != null)
@@ -65,6 +71,7 @@ public class AdminManager : MonoBehaviour
 
     private IEnumerator GetActiveRequests()
     {
+        requestList.Clear();
         string url = "https://augmentedsapiens-staging.herokuapp.com/getactiveticket";
 
         bool connection = false;
@@ -112,7 +119,6 @@ public class AdminManager : MonoBehaviour
         {
             for (int i=0; i<numOfRequests; i++)
             {
-                // Debug.Log(data[i].GetField("Color").ToString().Trim('"'));
                 request = new Requests();
 
                 request.color = data[i].GetField("Color").ToString().Trim('"');
@@ -133,11 +139,12 @@ public class AdminManager : MonoBehaviour
     public void UpdateTicket()
     {
         StartCoroutine(UpdateTicketStatus());
+        UIManager.Instance.loadingPanel.SetActive(true);
     }
 
     private IEnumerator UpdateTicketStatus()
     {
-        string url = "https://augmentedsapiens-staging.herokuapp.com/createticket";
+        string url = "https://augmentedsapiens-staging.herokuapp.com/updateticket";
 
         bool connection = false;
         yield return StartCoroutine(CheckInternetConnection((isConnected) => {
@@ -148,40 +155,39 @@ public class AdminManager : MonoBehaviour
         if (!connection)
         {
             Debug.Log("No internet Connection");
-            // ActivateNotification("No internet Connection");
+            UIManager.Instance.ActivateNotification("No internet Connection");
             yield break;
         }
 
         WWWForm form = new WWWForm();
-        // form.AddField("image", ScreenshotManager.Instance.base64Tex);
-        // form.AddField("latitude", latitude.ToString());
-        // form.AddField("longitude",longitude.ToString());
-        // form.AddField("color", color);
-        // form.AddField("description", description);
+        form.AddField("ticket_id", requestList[UIManager.Instance.activeCard].tickedID.ToString());
+        form.AddField("status", adminStatus);
+        Debug.Log(adminStatus);
 
         /************ For Debugging *************/
-        // form.AddField("image", "rgb");   
-        // form.AddField("latitude", "123");
-        // form.AddField("longitude", "123");
-        // form.AddField("color", "blue");
-        // form.AddField("description", "description");
+        // form.AddField("ticket_id", "1");
+        // form.AddField("status", "In Progress");
+        
 
         using (UnityWebRequest www = UnityWebRequest.Post(url, form))
         {
             yield return www.SendWebRequest();
+            UIManager.Instance.loadingPanel.SetActive(false);
 
             if (www.result != UnityWebRequest.Result.Success)
             {
                 Debug.Log(www.error);
-                // ActivateNotification(www.error);
+                UIManager.Instance.ActivateNotification(www.error);
             }
             else
             {
                 string response = www.downloadHandler.text;
                 print(response);
-                if(response == "{\"MESSAGE\":\"Ticket created successfully!\"}")
+                if(response != null)
                 {
-                    // ActivateNotification("Ticket created successfully!");
+                    UIManager.Instance.ActivateNotification("Ticket updated successfully!");
+                    // UIManager.Instance.ActivateNotification(response);
+                    StartCoroutine(GetActiveRequests());
                 }
             }
         }

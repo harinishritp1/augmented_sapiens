@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Michsky.UI.ModernUIPack;
 
 
 public class UIManager : MonoBehaviour
@@ -10,9 +11,10 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     public AdminManager adminManager;
-
-    public GameObject arPanel;
     public TextMeshProUGUI markerText;
+    public TextMeshProUGUI notificationhHeading;
+    public GameObject notificationPanel;
+    public GameObject arPanel;
     public GameObject notePanel;
     public GameObject adminPanel;
     public GameObject passwordPanel;
@@ -20,13 +22,16 @@ public class UIManager : MonoBehaviour
     public GameObject[] cardsPanel;
     public GameObject handleRequestPanel;
     public GameObject infoPanel;
+    public GameObject loadingPanel;
     public TMP_InputField noteDescription;
     public TMP_InputField password;
+    public Button updateButton;
     public GameObject[] statusButtons = new GameObject[4];
     public Sprite[] selectedStatusImages = new Sprite[4];
     public Sprite[] deselectedStatusImages = new Sprite[4];
     public bool isNotePanelUp = false;
     public string anchorColor = "";
+    public int activeCard = 0;
 
     private int status = 0;
     
@@ -155,6 +160,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ReloadButton()
+    {
+        adminManager.ReloadRequests();
+    }
+
     public void ActivateCards()
     {
         foreach(Transform Child in cardPanel.transform)
@@ -194,6 +204,13 @@ public class UIManager : MonoBehaviour
         infoPanel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "Location: " + adminManager.requestList[cardNumber].latitude.ToString() + ", " + adminManager.requestList[cardNumber].longitude.ToString();
         infoPanel.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "Priority: " + adminManager.requestList[cardNumber].priority.ToString();
         infoPanel.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = "Description: " + adminManager.requestList[cardNumber].description;
+        infoPanel.transform.GetChild(3).gameObject.GetComponent<HorizontalSelector>().defaultIndex =  ConvertStringStatusToInt(adminManager.requestList[cardNumber].status.Trim('"'))-1;
+        if(adminManager.requestList[cardNumber].status.Trim('"') == "Open")
+            updateButton.interactable = false;
+        infoPanel.transform.GetChild(3).gameObject.GetComponent<HorizontalSelector>().SetupSelector();
+        Debug.Log(adminManager.requestList[cardNumber].status.Trim('"'));
+        Debug.Log(ConvertStringStatusToInt(adminManager.requestList[cardNumber].status.Trim('"')));
+        activeCard = cardNumber;
     }
 
     public void RequestBackButton()
@@ -205,4 +222,44 @@ public class UIManager : MonoBehaviour
     {
         adminManager.UpdateTicket();
     }
+
+    public void AdminStatusValueChanged(string status)
+    {
+        adminManager.adminStatus = status;
+
+        if (status == "Open")    
+            updateButton.interactable = false;
+        else    
+            updateButton.interactable = true;
+    }
+
+    public int ConvertStringStatusToInt(string status)
+    {
+        if (status == "Open")
+            return 1;
+        else if (status == "In Progress")
+            return 2;
+        else if (status == "Closed")
+            return 3;
+        else
+            return 0;
+    }
+
+    public void ActivateNotification(string notification)
+    {
+        notificationPanel.SetActive(true);
+        notificationhHeading.text = notification;
+    }
+
+    public void OkayButton()
+    {
+        StartCoroutine(DeactivateNotification());
+    }
+
+    private IEnumerator DeactivateNotification()
+    {
+        yield return new WaitForSeconds(0.0f);
+        notificationPanel.SetActive(false);
+    }
+
 }
