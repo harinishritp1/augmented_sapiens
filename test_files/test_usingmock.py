@@ -1,7 +1,4 @@
-import json
-from unittest import TestCase
 from unittest.mock import patch
-import requests
 import sys
 import os
 
