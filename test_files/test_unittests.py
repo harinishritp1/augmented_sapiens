@@ -21,7 +21,17 @@ class AnalyzePriorityFunction(TestCase):
 
     def test_analyze_priority(self):
         actual = analyze_priority(color="red", description="urgent");
+        expected = 1
+        self.assertEqual(actual, expected)
+
+    def test_analyze_priority(self):
+        actual = analyze_priority(color="blue", description="water leaking");
         expected = 2
+        self.assertEqual(actual, expected)
+
+    def test_analyze_priority(self):
+        actual = analyze_priority(color="yellow", description="electric failure urgent");
+        expected = 1
         self.assertEqual(actual, expected)
 
 
