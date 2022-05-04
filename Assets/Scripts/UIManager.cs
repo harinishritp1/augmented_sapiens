@@ -13,6 +13,10 @@ public class UIManager : MonoBehaviour
     public AdminManager adminManager;
     public TextMeshProUGUI markerText;
     public TextMeshProUGUI notificationhHeading;
+    public TextMeshProUGUI infoPanelCoordsText;
+    public TextMeshProUGUI infoPanelPriorityText;
+    public TextMeshProUGUI infoPanelDescriptionText;
+    public HorizontalSelector infoPanelHorizontalSelector;
     public GameObject notificationPanel;
     public GameObject arPanel;
     public GameObject notePanel;
@@ -201,16 +205,19 @@ public class UIManager : MonoBehaviour
     {
         handleRequestPanel.SetActive(true);
         handleRequestPanel.GetComponent<Image>().sprite = Sprite.Create(CreateImage(adminManager.requestList[cardNumber].image), new Rect(0, 0, Util.ScreenWidth, Util.ScreenHeight), new Vector2(.5f, .5f), 100, 0, SpriteMeshType.FullRect); 
-        infoPanel.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "Location: " + adminManager.requestList[cardNumber].latitude.ToString() + ", " + adminManager.requestList[cardNumber].longitude.ToString();
-        infoPanel.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = "Priority: " + adminManager.requestList[cardNumber].priority.ToString();
-        infoPanel.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = "Description: " + adminManager.requestList[cardNumber].description;
-        infoPanel.transform.GetChild(3).gameObject.GetComponent<HorizontalSelector>().defaultIndex =  ConvertStringStatusToInt(adminManager.requestList[cardNumber].status.Trim('"'))-1;
+        infoPanelCoordsText.text = "Location: " + adminManager.requestList[cardNumber].latitude.ToString() + ", " + adminManager.requestList[cardNumber].longitude.ToString();
+        infoPanelPriorityText.text = "Priority: " + adminManager.requestList[cardNumber].priority.ToString();
+        infoPanelDescriptionText.text = "Description: " + adminManager.requestList[cardNumber].description;
+        
+        infoPanelHorizontalSelector.defaultIndex =  ConvertStringStatusToInt(adminManager.requestList[cardNumber].status.Trim('"'))-1;
         if(adminManager.requestList[cardNumber].status.Trim('"') == "Open")
             updateButton.interactable = false;
-        infoPanel.transform.GetChild(3).gameObject.GetComponent<HorizontalSelector>().SetupSelector();
+        infoPanelHorizontalSelector.SetupSelector();
+        activeCard = cardNumber;
+
+        Debug.Log(adminManager.requestList[cardNumber].description);
         Debug.Log(adminManager.requestList[cardNumber].status.Trim('"'));
         Debug.Log(ConvertStringStatusToInt(adminManager.requestList[cardNumber].status.Trim('"')));
-        activeCard = cardNumber;
     }
 
     public void RequestBackButton()

@@ -131,9 +131,6 @@ public class RequestManager : MonoBehaviour
 
     public void OkayButton()
     {
-        // LeanTween.scale(notificationPanel.transform.GetChild(0).gameObject.GetComponent<RectTransform>(), notificationPanel.transform.GetChild(0).gameObject.GetComponent<RectTransform>().localScale/10f, 0.5f).setEase( LeanTweenType.easeOutQuad );
-        // LeanTween.alpha(notificationPanel.GetComponent<RectTransform>(), 0.0f, 0.3f).setEase( LeanTweenType.easeOutQuad );
-        // LeanTween.alpha(notificationPanel.transform.GetChild(0).gameObject.GetComponent<RectTransform>(), 0.0f, 0.3f).setEase( LeanTweenType.easeOutQuad );
         StartCoroutine(DeactivateNotification());
     }
 

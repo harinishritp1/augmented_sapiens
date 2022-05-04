@@ -1808,6 +1808,10 @@ MonoBehaviour:
   adminManager: {fileID: 1352312516}
   markerText: {fileID: 0}
   notificationhHeading: {fileID: 1166479777}
+  infoPanelCoordsText: {fileID: 744280224}
+  infoPanelPriorityText: {fileID: 1796753109}
+  infoPanelDescriptionText: {fileID: 251594316}
+  infoPanelHorizontalSelector: {fileID: 904934059}
   notificationPanel: {fileID: 1166479776}
   arPanel: {fileID: 421571121}
   notePanel: {fileID: 909102703}
